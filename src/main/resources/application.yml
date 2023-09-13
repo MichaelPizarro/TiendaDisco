@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: jdbc:mysql://${DB_HOST}:3306/${DB_SCHEMA}?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+
+

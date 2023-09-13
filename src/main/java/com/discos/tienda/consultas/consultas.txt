@@ -1,0 +1,46 @@
+Consulta 1
+SELECT artistas.nombre,discos.titulo
+  FROM artistas
+  INNER JOIN artistas_discos
+  ON artistas.idartista = artistas_discos.artistas_idartista
+  INNER JOIN discos
+  ON artistas_discos.discos_iddisco = discos.iddisco
+  WHERE artistas.genero = 'Pop' AND discos.anio_lanzamiento > 2000;
+
+Consulta 2
+SELECT canciones.titulo,canciones.duracion
+	FROM canciones
+    INNER JOIN discos
+    ON canciones.discos_iddisco = discos.iddisco
+    WHERE discos.iddisco = 10;
+
+Consulta 3
+SELECT artistas.nombre,count(*) as cantidad
+  FROM artistas
+  INNER JOIN artistas_discos
+  ON artistas.idartista = artistas_discos.artistas_idartista
+  INNER JOIN discos
+  ON artistas_discos.discos_iddisco = discos.iddisco
+  group by artistas.nombre order by cantidad desc;
+
+Consulta 4
+SELECT discos.titulo
+  FROM discos
+  INNER JOIN ventas_discos
+  ON discos.iddisco = ventas_discos.discos_iddisco
+  INNER JOIN ventas
+  ON ventas.idventa = ventas_discos.ventas_idventa
+  INNER JOIN clientes
+  ON clientes.idcliente = ventas.clientes_idcliente
+  WHERE clientes.idcliente = 3;
+
+Consulta 5
+SELECT clientes.nombre, artistas.nombre
+FROM clientes
+JOIN ventas ON clientes.idcliente = ventas.clientes_idcliente
+JOIN detalle_venta ON ventas.idventa = detalle_venta.ventas_idventa
+JOIN discos ON detalle_venta.iddisco = discos.iddisco
+JOIN artistas_discos ON discos.iddisco = artistas_discos.discos_iddisco
+JOIN artistas ON artistas_discos.artistas_idartista = artistas.idartista
+GROUP BY clientes.nombre, artistas.nombre
+HAVING COUNT(*) > 5;
